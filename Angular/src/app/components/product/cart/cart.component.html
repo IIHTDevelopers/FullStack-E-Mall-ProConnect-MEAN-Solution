@@ -1,0 +1,47 @@
+<div class="cart">
+    <h2>Cart Details</h2>
+    <div *ngIf="cart">
+        <h2>Your Cart</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of cart.items; let i = index">
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.product.price }}</td>
+                    <td>
+                        <button (click)="decreaseQuantity(item)">-</button>
+                        {{ item.quantity }}
+                        <button (click)="increaseQuantity(item)">+</button>
+                    </td>
+                    <td>
+                        <button (click)="removeItem(item._id)">Remove</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <button (click)="checkoutCart()">Checkout Cart</button>
+        <div *ngIf="showCheckoutForm" class="checkout-form">
+            <h3>Checkout Form</h3>
+            <form (ngSubmit)="submitCheckoutForm()">
+                <label for="paymentBy">Payment Method:</label>
+                <input type="text" id="paymentBy" [(ngModel)]="paymentBy" name="paymentBy" required>
+                <label for="shippingAddress">Shipping Address:</label>
+                <textarea id="shippingAddress" [(ngModel)]="shippingAddress" name="shippingAddress" required></textarea>
+                <label for="trackingNumber">Tracking Number:</label>
+                <input type="text" id="trackingNumber" [value]="trackingNumber" readonly>
+                <label>Estimated Delivery Date:</label>
+                <p>{{ estimatedDeliveryDate }}</p>
+                <label for="totalAmount">Total Amount:</label>
+                <input type="text" id="totalAmount" [value]="totalAmount" readonly>
+                <button type="submit">Submit</button>
+            </form>
+        </div>
+    </div>
+</div>

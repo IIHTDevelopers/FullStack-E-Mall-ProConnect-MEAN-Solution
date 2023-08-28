@@ -1,0 +1,91 @@
+<div class="admin-product">
+    <h3>Admin - Product Management</h3>
+
+    <div class="search-product">
+        <label for="searchName">Search Product by Name:</label>
+        <input type="text" id="searchName" [(ngModel)]="searchName" (input)="searchProduct()">
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of products">
+                <td>{{ product._id }}</td>
+                <td>{{ product.name }}</td>
+                <td>{{ product.description }}</td>
+                <td>{{ product.price | currency }}</td>
+                <td>
+                    <button (click)="editProduct(product)">Edit</button>
+                    <button (click)="deleteProduct(product)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+
+    <h4>{{ isEditing ? 'Edit' : 'Create' }} Product</h4>
+    <form (ngSubmit)="onSubmit()" #newProductForm="ngForm">
+        <div class="form-group">
+            <label for="productName">Name</label>
+            <input type="text" id="productName" [(ngModel)]="newProduct.name" name="name" required>
+            <div
+                *ngIf="newProductForm.controls['name']?.invalid && (newProductForm.controls['name']?.dirty || newProductForm.controls['name']?.touched)">
+                <div *ngIf="newProductForm.controls['name']?.errors?.['required']" class="error-message">Name is
+                    required.
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="productDescription">Description</label>
+            <textarea id="productDescription" [(ngModel)]="newProduct.description" name="description"></textarea>
+        </div>
+        <div class="form-group">
+            <label for="productPrice">Price</label>
+            <input type="number" id="productPrice" [(ngModel)]="newProduct.price" name="price" required>
+            <div
+                *ngIf="newProductForm.controls['price']?.invalid && (newProductForm.controls['price']?.dirty || newProductForm.controls['price']?.touched)">
+                <div *ngIf="newProductForm.controls['price']?.errors?.['required']" class="error-message">Price is
+                    required.
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="productCategory">Category</label>
+            <input type="text" id="productCategory" [(ngModel)]="newProduct.category" name="category">
+        </div>
+        <div class="form-group">
+            <label for="productImage">Image URL</label>
+            <input type="text" id="productImage" [(ngModel)]="newProduct.image" name="image">
+        </div>
+        <button type="submit" [disabled]="!newProductForm.valid">{{ isEditing ? 'Update' : 'Create' }} Product</button>
+    </form>
+
+    <h3>Top Rated Products</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Ratings</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let product of topRatedProducts">
+                <td>{{ product.name }}</td>
+                <td>{{ product.price }}</td>
+                <td>{{ product.category }}</td>
+                <td>{{ product.ratings.join(', ') }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>

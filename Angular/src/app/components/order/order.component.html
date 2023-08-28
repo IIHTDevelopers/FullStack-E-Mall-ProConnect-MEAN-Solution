@@ -1,0 +1,32 @@
+<div class="order-list">
+    <h2>Your Orders</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Status</th>
+                <th>Total Amount</th>
+                <th>Payment Method</th>
+                <th>Shipment Address</th>
+                <th>Tracking Number</th>
+                <th>Estimated Delivery</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let order of orders">
+                <td>{{ order._id }}</td>
+                <td>{{ order.status }}</td>
+                <td>{{ order.totalAmount }}</td>
+                <td>{{ order.paymentDetails.paymentMethod }}</td>
+                <td>{{ order.shipmentDetails.address }}</td>
+                <td>{{ order.shipmentDetails.trackingNumber }}</td>
+                <td>{{ order.shipmentDetails.estimatedDelivery | date:'mediumDate' }}</td>
+                <td>
+                    <button (click)="cancelOrder(order)" [disabled]="order.status !== 'Pending'">Cancel
+                        Order</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

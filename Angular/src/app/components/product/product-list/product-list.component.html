@@ -1,0 +1,18 @@
+<div class="product-list">
+    <h3>Product List</h3>
+    <div class="search-product">
+        <label for="searchName">Search Product by Name:</label>
+        <input type="text" id="searchName" [(ngModel)]="searchName">
+        <button (click)="searchProduct()">Search</button>
+    </div>
+
+    <div *ngIf="products.length > 0">
+        <div class="product" *ngFor="let product of products">
+            <h4>{{ product.name }}</h4>
+            <p>Price: ${{ product.price }}</p>
+            <p>Description: ${{ product.description }}</p>
+            <button (click)="addToCart(product)">Add to Cart</button>
+            <button (click)="viewDetails(product)">View Details</button>
+        </div>
+    </div>
+</div>

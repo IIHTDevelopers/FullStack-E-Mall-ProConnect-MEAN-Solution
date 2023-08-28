@@ -1,0 +1,12 @@
+<h1>E-Mall ProConnect</h1>
+<div>
+    <nav>
+        <a routerLink="/">Home</a>------
+        <a routerLink="/products">Products</a>-----
+        <a *ngIf="isLoggedIn" routerLink="/orders">Orders</a>-----
+        <a *ngIf="isLoggedIn" routerLink="/admin">Admin</a>
+    </nav>
+    <button *ngIf="!isLoggedIn" routerLink="/login" class="login-button">Login</button>
+    <button *ngIf="isLoggedIn" (click)="onLogout()" class="login-button">Logout</button>
+</div>
+<router-outlet></router-outlet>

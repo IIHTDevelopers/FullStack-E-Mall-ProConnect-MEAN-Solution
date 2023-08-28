@@ -1,0 +1,82 @@
+<div class="admin-user">
+    <h3>Admin - Users Management</h3>
+
+    <div class="search-user">
+        <label for="searchEmail">Search User by Email:</label>
+        <input type="email" id="searchEmail" [formControl]="searchEmailControl">
+        <button (click)="searchUser()">Search</button>
+    </div>
+
+    <table *ngIf="users.length > 0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let user of users">
+                <td>{{ user._id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.email }}</td>
+                <td>
+                    <button (click)="getUserProfile(user._id)">View Profile</button>
+                    <button (click)="editUserProfile(user._id)">Edit Profile</button>
+                    <button (click)="deleteUser(user._id)">Delete User</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <hr>
+    <div class="user-details" *ngIf="selectedUser">
+        <h4>User Details</h4>
+        <p><strong>ID:</strong> {{ selectedUser._id }}</p>
+        <p><strong>Username:</strong> {{ selectedUser.username }}</p>
+        <p><strong>Email:</strong> {{ selectedUser.email }}</p>
+        <p><strong>First Name:</strong> {{ selectedUser.profile.firstName }}</p>
+        <p><strong>Last Name:</strong> {{ selectedUser.profile.lastName }}</p>
+        <p><strong>Address:</strong> {{ selectedUser.profile.address }}</p>
+        <h4>Activity</h4>
+        <ul>
+            <li *ngFor="let activity of userActivity">{{ activity.action }} -- {{ activity.timestamp }}</li>
+        </ul>
+        <h4>Favorites</h4>
+        <ul>
+            <li *ngFor="let favorite of userFavorites">{{ favorite }}</li>
+        </ul>
+    </div>
+    <hr>
+
+    <h4>Create New User</h4>
+    <form (ngSubmit)="onSubmit()" [formGroup]="newUserForm">
+        <div class="form-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" formControlName="username" required>
+        </div>
+        <div class="form-group">
+            <label for="email">Email</label>
+            <input type="email" id="email" formControlName="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" formControlName="password" required>
+        </div>
+        <div class="form-group" formGroupName="profile">
+            <label for="firstName">First Name</label>
+            <input type="text" id="firstName" formControlName="firstName">
+        </div>
+        <div class="form-group" formGroupName="profile">
+            <label for="lastName">Last Name</label>
+            <input type="text" id="lastName" formControlName="lastName">
+        </div>
+        <div class="form-group" formGroupName="profile">
+            <label for="address">Address</label>
+            <input type="text" id="address" formControlName="address">
+        </div>
+        <div *ngIf="error" class="error-message">{{ error }}</div>
+        <button type="submit" [disabled]="newUserForm.invalid">{{ isEditing ? 'Update' : 'Create' }} User</button>
+    </form>
+</div>

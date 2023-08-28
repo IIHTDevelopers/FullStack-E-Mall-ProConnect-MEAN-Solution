@@ -1,0 +1,29 @@
+<div *ngIf="product">
+    <h2>{{ product.name }}</h2>
+    <p><strong>Price:</strong> ${{ product.price }}</p>
+    <p><strong>Description:</strong> {{ product.description }}</p>
+    <p><strong>Category:</strong> {{ product.category }}</p>
+    <img src="{{ product.image }}" alt="{{ product.name }}" width="200">
+    <button (click)="addToCart(product)">Add to Cart</button>
+    <h3>Blog Details</h3>
+    <div *ngIf="blog">
+        <h4>{{ blog.title }}</h4>
+        <p>{{ blog.content }}</p>
+        <p>Author: {{ blog.author?.username}}</p>
+        <p>Category: {{ blog.category }}</p>
+        <h4>Comments:</h4>
+        <ul>
+            <li *ngFor="let comment of blog.comments">
+                <p>{{ comment.content }} - {{ comment.user.username }}</p>
+            </li>
+        </ul>
+        <p>Likes: {{ blog.likes?.length }}</p>
+    </div>
+    <div *ngIf="!blog">
+        <p>No blog details available for this product.</p>
+    </div>
+</div>
+
+<div *ngIf="!product">
+    <p>Loading product details...</p>
+</div>

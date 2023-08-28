@@ -1,0 +1,21 @@
+<div class="admin-order-list">
+    <h2>All Orders</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>User ID</th>
+                <th>Status</th>
+                <th>Total Amount</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let order of orders">
+                <td>{{ order._id }}</td>
+                <td>{{ order.user }}</td>
+                <td>{{ order.status }}</td>
+                <td>{{ order.totalAmount }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
