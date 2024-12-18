@@ -48,13 +48,5 @@ describe('LoginComponent', () => {
       tick();
       expect(authService.login).toHaveBeenCalledWith(email, password);
     }));
-
-    it('should call authService.login and navigate on successful form submission', () => {
-      const email = 'test@example.com';
-      const password = 'password';
-      component.loginForm.setValue({ email, password });
-      component.onSubmit();
-      expect(authService.login).toHaveBeenCalledWith(email, password);
-    });
   });
 });
