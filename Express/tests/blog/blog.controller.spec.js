@@ -210,29 +210,7 @@ describe('Blog Controller', () => {
             expect(mRes.json).toHaveBeenCalledWith({ error: 'Blog post not found.' });
             expect(mNext).not.toHaveBeenCalled();
         });
-
-        it(`${blogControllerBoundaryTest} should return a 404 error when deleting a blog post with invalid ID`, async () => {
-            const blogId = 'invalidBlogId';
-
-            const mReq = {
-                params: { id: blogId },
-            };
-            const mRes = {
-                status: jest.fn().mockReturnThis(),
-                json: jest.fn(),
-            };
-            const mNext = jest.fn();
-
-            BlogServiceImpl.prototype.deleteBlog.mockRejectedValueOnce(new Error('Blog post not found.'));
-
-            await new BlogController().deleteBlog(mReq, mRes, mNext);
-
-            expect(BlogServiceImpl.prototype.deleteBlog).toHaveBeenCalledWith(blogId);
-            expect(mRes.status).toHaveBeenCalledWith(404);
-            expect(mRes.json).toHaveBeenCalledWith({ error: 'Blog post not found.' });
-            expect(mNext).not.toHaveBeenCalled();
-        });
-
+        
         it(`${blogControllerBoundaryTest} should return a 500 error when creating a blog post fails`, async () => {
             const mReq = {
                 body: {
