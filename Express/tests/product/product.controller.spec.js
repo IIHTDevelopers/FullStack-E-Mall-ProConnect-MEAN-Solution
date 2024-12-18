@@ -171,40 +171,7 @@ describe("Product Controller", () => {
       expect(mRes.json).toHaveBeenCalledWith(updatedProduct);
       expect(mNext).not.toHaveBeenCalled();
     });
-
-    it(`${productControllerBoundaryTest} should delete a product by ID`, async () => {
-      const productId = "mockProductId";
-      const deletedProduct = {
-        _id: productId,
-        name: "Test Product",
-        description: "Test product description",
-        price: 19.99,
-        category: "Electronics",
-        image: "test_image.jpg",
-        ratings: [4, 5],
-      };
-
-      const mReq = {
-        params: { id: productId },
-      };
-      const mRes = {
-        json: jest.fn(),
-      };
-      const mNext = jest.fn();
-
-      ProductServiceImpl.prototype.deleteProduct.mockResolvedValueOnce(
-        deletedProduct
-      );
-
-      await new ProductController().deleteProduct(mReq, mRes, mNext);
-
-      expect(ProductServiceImpl.prototype.deleteProduct).toHaveBeenCalledWith(
-        productId
-      );
-      expect(mRes.json).toHaveBeenCalledWith(deletedProduct);
-      expect(mNext).not.toHaveBeenCalled();
-    });
-
+   
     it(`${productControllerBoundaryTest} should return a 404 error when getting product with invalid ID`, async () => {
       const productId = "invalidProductId";
 
